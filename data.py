@@ -10,7 +10,8 @@ def setup():
 
     entity_data = {
         claim.id: claim,
-        claim_part.id: claim_part
+        claim_part.id: claim_part,
+        "claim_asset": {"id": "claim_asset", "title": "Claim Asset"}
     }
 
 def get_entity(id):
