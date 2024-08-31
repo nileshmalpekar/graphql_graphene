@@ -7,5 +7,8 @@ init_db()
 client = Client(schema)
 
 def test_users_query():
-    result = client.execute("""query { users { firstName, lastName }}""")
-    assert result == {"data": {"users": [{"firstName": "Nilesh", "lastName": "Malpekar"}]}}
+    result = client.execute("""query { users { firstName, lastName, fullName }}""")
+    assert result == {"data": {"users": [
+        {"firstName": "Nilesh", "lastName": "Malpekar", "fullName": "Nilesh Malpekar"}
+        ]}}
+
