@@ -3,4 +3,5 @@ Flask-GraphQL
 graphene-mongo
 mongomock
 setuptools
+pytest
 
