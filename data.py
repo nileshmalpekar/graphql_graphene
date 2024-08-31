@@ -1,18 +1,12 @@
+import json
 entity_data = {}
 
 def setup():
-    from schema import Entity
-
     global entity_data
 
-    claim = Entity(id="claim", title="Claim")
-    claim_part = Entity(id="claim_part", title="Claim Participant")
-
-    entity_data = {
-        claim.id: claim,
-        claim_part.id: claim_part,
-        "claim_asset": {"id": "claim_asset", "title": "Claim Asset"}
-    }
+    with open('./data/entity.json', 'r') as file:
+        _entities = json.load(file)
+        entity_data = dict([(_e["id"], _e) for _e in _entities])
 
 def get_entity(id):
     return entity_data.get(id)

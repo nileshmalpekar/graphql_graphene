@@ -19,6 +19,7 @@ def test_entities():
     assert result == {"data": {"entities": [ 
         {"id": "claim", "title": "Claim"}, 
         {"id": "claim_part", "title": "Claim Participant"},
-        {"id": "claim_asset", "title": "Claim Asset"}
+        {"id": "claim_asset", "title": "Claim Asset"},
+        {"id": "claim_part_injr", "title": "Claim Participant Injury"}
         ]}}
 
