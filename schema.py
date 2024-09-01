@@ -1,20 +1,16 @@
 import graphene
 
-from graphene_mongo import MongoengineObjectType
+# from graphene_mongo import MongoengineObjectType
 
-from models import User as UserModel
+# from models import User as UserModel
 import data
-# from data import get_entities, get_entity
 
-class Entity:
-    pass
-
-class User(MongoengineObjectType):
-    class Meta:
-        model = UserModel
-    full_name = graphene.String()
-    def resolve_full_name(self, info):
-        return f"{self.first_name} {self.last_name}"
+# class User(MongoengineObjectType):
+#     class Meta:
+#         model = UserModel
+#     full_name = graphene.String()
+#     def resolve_full_name(self, info):
+#         return f"{self.first_name} {self.last_name}"
 
 class EntityParent(graphene.ObjectType):
     entity_id = graphene.ID()
@@ -35,7 +31,7 @@ class Entity(graphene.ObjectType):
         return list(data.get_entity_children(parent['id']))
 
 class Query(graphene.ObjectType):
-    users = graphene.List(User)
+    # users = graphene.List(User)
 
     entities = graphene.List(Entity)
     entity = graphene.Field(Entity, id=graphene.String())
@@ -46,8 +42,8 @@ class Query(graphene.ObjectType):
     def resolve_entities(self, info):
         return list(data.get_entities())
 
-    def resolve_users(self, info):
-        return list(UserModel.objects.all())
+    # def resolve_users(self, info):
+    #     return list(UserModel.objects.all())
 
 
 schema = graphene.Schema(query=Query)
