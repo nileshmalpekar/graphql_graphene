@@ -23,3 +23,11 @@ def test_entities():
         {"id": "claim_part_injr", "title": "Claim Participant Injury"}
         ]}}
 
+
+def test_insights():
+    result = client.execute("""query { insights { id, title }}""")
+    assert result == {"data": {"insights": [ 
+        {"id": "BII", "title": "Bodily Injury Identification"}, 
+        {"id": "TL", "title": "Total Loss"}
+        ]}}
+

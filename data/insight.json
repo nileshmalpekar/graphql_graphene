@@ -1,0 +1,4 @@
+[
+    {"id": "BII", "title": "Bodily Injury Identification", "entity_id": "claim_part", "value_type": "float"},
+    {"id": "TL", "title": "Total Loss", "entity_id": "claim_asset", "value_type": "float"}
+]
