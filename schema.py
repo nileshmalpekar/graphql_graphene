@@ -6,6 +6,9 @@ from models import User as UserModel
 import data
 # from data import get_entities, get_entity
 
+class Entity:
+    pass
+
 class User(MongoengineObjectType):
     class Meta:
         model = UserModel
@@ -13,9 +16,23 @@ class User(MongoengineObjectType):
     def resolve_full_name(self, info):
         return f"{self.first_name} {self.last_name}"
 
+class EntityParent(graphene.ObjectType):
+    entity_id = graphene.ID()
+    entity = graphene.Field(lambda: Entity)
+    foreign_key = graphene.List(graphene.NonNull(graphene.String))
+
+    def resolve_entity(parent, info):
+        return data.get_entity(parent['entity_id'])
+
 class Entity(graphene.ObjectType):
     id = graphene.ID(required=True)
     title = graphene.String(required=True)
+    primary_key = graphene.List(graphene.NonNull(graphene.String))
+    parents = graphene.List(graphene.NonNull(EntityParent))
+    children = graphene.List(graphene.NonNull(lambda: Entity))
+
+    def resolve_children(parent, info):
+        return list(data.get_entity_children(parent['id']))
 
 class Query(graphene.ObjectType):
     users = graphene.List(User)

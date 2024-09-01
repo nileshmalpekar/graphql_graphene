@@ -1,6 +1,6 @@
 [
-    {"id": "claim", "title": "Claim"},
-    {"id": "claim_part", "title": "Claim Participant"},
-    {"id": "claim_asset", "title": "Claim Asset"},
-    {"id": "claim_part_injr", "title": "Claim Participant Injury"}
+    {"id": "claim", "title": "Claim", "primary_key": ["claim_id"]},
+    {"id": "claim_part", "title": "Claim Participant", "primary_key": ["part_id"], "parents": [{ "entity_id": "claim", "foreign_key": ["claim_id"]}]},
+    {"id": "claim_asset", "title": "Claim Asset", "primary_key": ["asset_id"], "parents": [{ "entity_id": "claim", "foreign_key": ["claim_id"]}]},
+    {"id": "claim_part_injr", "title": "Claim Participant Injury", "primary_key": ["injr_id"], "parents": [{ "entity_id": "claim_part", "foreign_key": ["part_id"]}]}
 ]

@@ -13,3 +13,6 @@ def get_entity(id):
 
 def get_entities():
     return entity_data.values()
+
+def get_entity_children(id):
+    return [entity_data.get(k) for k,v in entity_data.items() if "parents" in v and id in [a['entity_id'] for a in v['parents']]]
