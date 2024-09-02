@@ -14,8 +14,9 @@ import data
 
 class EntityParent(graphene.ObjectType):
     entity_id = graphene.ID()
-    entity = graphene.Field(lambda: Entity)
     foreign_key = graphene.List(graphene.NonNull(graphene.String))
+
+    entity = graphene.Field(lambda: Entity)
 
     def resolve_entity(parent, info):
         return data.get_entity(parent['entity_id'])
@@ -24,25 +25,45 @@ class Entity(graphene.ObjectType):
     id = graphene.ID(required=True)
     title = graphene.String(required=True)
     primary_key = graphene.List(graphene.NonNull(graphene.String))
-    parents = graphene.List(graphene.NonNull(EntityParent))
-    children = graphene.List(graphene.NonNull(lambda: Entity))
+    belongs_to = graphene.List(graphene.NonNull(EntityParent))
+
+    children_entities = graphene.List(graphene.NonNull(lambda: Entity))
+    parent_entities = graphene.List(graphene.NonNull(lambda: Entity))
     insights = graphene.List(lambda: Insight)
 
-    def resolve_children(parent, info):
+    def resolve_children_entities(parent, info):
         return list(data.get_entity_children(parent['id']))
 
+    def resolve_parent_entities(parent, info):
+        return list(data.get_entity_belongs_to(parent['id']))
+
     def resolve_insights(parent, info):
-        return list(data.get_entity_insights(parent['id']))
+        return list(data.get_insights_by_entity_id(parent['id']))
 
 class Insight(graphene.ObjectType):
     id = graphene.ID(required=True)
     title = graphene.String(required=True)
     value_type = graphene.String(required=True)
     entity_id = graphene.ID(required=True)
+
     entity = graphene.Field(lambda: Entity)
+    models = graphene.List(lambda: Model)
 
     def resolve_entity(parent, info):
         return data.get_entity(parent['entity_id'])
+    
+    def resolve_models(parent, info):
+        return data.get_models_by_insight_id(parent['id'])
+
+class Model(graphene.ObjectType):
+    id = graphene.ID(required=True)
+    title = graphene.String(required=True)
+    insight_id = graphene.ID(required=True)
+    
+    insight = graphene.Field(lambda: Insight)
+
+    def resolve_insight(parent, info):
+        return data.get_insight(parent['insight_id'])
 
 
 class Query(graphene.ObjectType):
@@ -69,5 +90,13 @@ class Query(graphene.ObjectType):
     def resolve_insights(self, info):
         return list(data.get_insights())
 
+    models = graphene.List(Model)
+    model = graphene.Field(Model, id=graphene.String())
+
+    def resolve_model(root, info, id):
+        return data.get_model(id)
+    
+    def resolve_models(self, info):
+        return list(data.get_models())
 
 schema = graphene.Schema(query=Query)
