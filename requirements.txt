@@ -1,7 +1,12 @@
 Flask
 Flask-GraphQL
-graphene-mongo
-mongomock
-setuptools
+graphene
 pytest
-
+coverage
+pylint
+pytest
+pytest-runner
+pytest-cov
+pytest-benchmark
+pytest-flask
+gunicorn

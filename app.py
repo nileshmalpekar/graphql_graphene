@@ -1,15 +1,3 @@
-# from database import init_db
-from data import setup
-from flask import Flask
-from flask_graphql import GraphQLView
-from schema import schema
+from my_app import create_app
 
-app = Flask(__name__)
-app.debug = True
-
-app.add_url_rule("/graphql", view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True))
-
-if __name__ == "__main__":
-    # init_db()
-    setup()
-    app.run()
+app = create_app('flask.cfg')
