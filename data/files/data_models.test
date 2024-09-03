@@ -1,0 +1,4 @@
+query { models { id, title, insightId }}
+{"data":{"models":[{"id":"m1","title":"M1 for BII","insightId":"BII"},{"id":"m2","title":"M2 for BII","insightId":"BII"},{"id":"m3","title":"M3 for TL","insightId":"TL"}]}}
+query { models { id, insight { id } } }
+{"data":{"models":[{"id":"m1","insight":{"id":"BII"}},{"id":"m2","insight":{"id":"BII"}},{"id":"m3","insight":{"id":"TL"}}]}}
