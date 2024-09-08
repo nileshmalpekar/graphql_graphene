@@ -1,0 +1,68 @@
+[
+    {
+        "query": "query { models { id, title, insightId }}",
+        "expected_output": {
+            "data": {
+                "models": [
+                    {
+                        "id": "m1",
+                        "title": "M1 for BII",
+                        "insightId": "BII"
+                    },
+                    {
+                        "id": "m2",
+                        "title": "M2 for BII",
+                        "insightId": "BII"
+                    },
+                    {
+                        "id": "m3",
+                        "title": "M3 for TL",
+                        "insightId": "TL"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { models { id, insight { id } } }",
+        "expected_output": {
+            "data": {
+                "models": [
+                    {
+                        "id": "m1",
+                        "insight": {
+                            "id": "BII"
+                        }
+                    },
+                    {
+                        "id": "m2",
+                        "insight": {
+                            "id": "BII"
+                        }
+                    },
+                    {
+                        "id": "m3",
+                        "insight": {
+                            "id": "TL"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query model_query($id: String) { model(id: $id) { id, title, insightId } }",
+        "variables": {
+            "id": "m2"
+        },
+        "expected_output": {
+            "data": {
+                "model": {
+                    "id": "m2",
+                    "title": "M2 for BII",
+                    "insightId": "BII"
+                }
+            }
+        }
+    }
+]

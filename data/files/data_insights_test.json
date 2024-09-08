@@ -1,0 +1,72 @@
+[
+    {
+        "query": "query { insights { id, title, entityId, valueType }}",
+        "expected_output": {
+            "data": {
+                "insights": [
+                    {
+                        "id": "BII",
+                        "title": "Bodily Injury Identification",
+                        "entityId": "claim_part",
+                        "valueType": "float"
+                    },
+                    {
+                        "id": "TL",
+                        "title": "Total Loss",
+                        "entityId": "claim_asset",
+                        "valueType": "float"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { insights { id, entity { id } }}",
+        "expected_output": {
+            "data": {
+                "insights": [
+                    {
+                        "id": "BII",
+                        "entity": {
+                            "id": "claim_part"
+                        }
+                    },
+                    {
+                        "id": "TL",
+                        "entity": {
+                            "id": "claim_asset"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { insights { id, models { id } }}",
+        "expected_output": {
+            "data": {
+                "insights": [
+                    {
+                        "id": "BII",
+                        "models": [
+                            {
+                                "id": "m1"
+                            },
+                            {
+                                "id": "m2"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "TL",
+                        "models": [
+                            {
+                                "id": "m3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+]

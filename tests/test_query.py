@@ -9,7 +9,8 @@ data.setup("./data/test/")
 grapheneClient = Client(schema)
 
 def test_query_using_files(input, output):
-    result = grapheneClient.execute(input)
+    q,v = input
+    result = grapheneClient.execute(q, variables=v)
     assert result == output
 
 def test_http_data(client, payload, output):

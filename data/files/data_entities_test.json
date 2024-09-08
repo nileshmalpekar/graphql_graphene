@@ -1,0 +1,213 @@
+[
+    {
+        "query": "query { entities { id, title, primaryKey, belongsTo { entityId, foreignKey} }}",
+        "expected_output": {
+            "data": {
+                "entities": [
+                    {
+                        "id": "claim",
+                        "title": "Claim",
+                        "primaryKey": [
+                            "claim_id"
+                        ],
+                        "belongsTo": null
+                    },
+                    {
+                        "id": "claim_part",
+                        "title": "Claim Participant",
+                        "primaryKey": [
+                            "part_id"
+                        ],
+                        "belongsTo": [
+                            {
+                                "entityId": "claim",
+                                "foreignKey": [
+                                    "claim_id"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_asset",
+                        "title": "Claim Asset",
+                        "primaryKey": [
+                            "asset_id"
+                        ],
+                        "belongsTo": [
+                            {
+                                "entityId": "claim",
+                                "foreignKey": [
+                                    "claim_id"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_part_injr",
+                        "title": "Claim Participant Injury",
+                        "primaryKey": [
+                            "injr_id"
+                        ],
+                        "belongsTo": [
+                            {
+                                "entityId": "claim_part",
+                                "foreignKey": [
+                                    "part_id"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { entities { id, belongsTo { entity { id } } }}",
+        "expected_output": {
+            "data": {
+                "entities": [
+                    {
+                        "id": "claim",
+                        "belongsTo": null
+                    },
+                    {
+                        "id": "claim_part",
+                        "belongsTo": [
+                            {
+                                "entity": {
+                                    "id": "claim"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_asset",
+                        "belongsTo": [
+                            {
+                                "entity": {
+                                    "id": "claim"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_part_injr",
+                        "belongsTo": [
+                            {
+                                "entity": {
+                                    "id": "claim_part"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { entities { id, childrenEntities { id } }}",
+        "expected_output": {
+            "data": {
+                "entities": [
+                    {
+                        "id": "claim",
+                        "childrenEntities": [
+                            {
+                                "id": "claim_part"
+                            },
+                            {
+                                "id": "claim_asset"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_part",
+                        "childrenEntities": [
+                            {
+                                "id": "claim_part_injr"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_asset",
+                        "childrenEntities": []
+                    },
+                    {
+                        "id": "claim_part_injr",
+                        "childrenEntities": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { entities { id, parentEntities { id } }}",
+        "expected_output": {
+            "data": {
+                "entities": [
+                    {
+                        "id": "claim",
+                        "parentEntities": []
+                    },
+                    {
+                        "id": "claim_part",
+                        "parentEntities": [
+                            {
+                                "id": "claim"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_asset",
+                        "parentEntities": [
+                            {
+                                "id": "claim"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_part_injr",
+                        "parentEntities": [
+                            {
+                                "id": "claim_part"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "query": "query { entities { id, insights { id } }}",
+        "expected_output": {
+            "data": {
+                "entities": [
+                    {
+                        "id": "claim",
+                        "insights": []
+                    },
+                    {
+                        "id": "claim_part",
+                        "insights": [
+                            {
+                                "id": "BII"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_asset",
+                        "insights": [
+                            {
+                                "id": "TL"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "claim_part_injr",
+                        "insights": []
+                    }
+                ]
+            }
+        }
+    }
+]
